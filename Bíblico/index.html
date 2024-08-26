@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Bíblico</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="quiz-container">
+        <h1>Quiz Bíblico</h1>
+        <div class="quiz-question">
+            <h2 id="question"></h2>
+            <div class="quiz-options">
+                <button onclick="checkAnswer(this)" id="option1"></button>
+                <button onclick="checkAnswer(this)" id="option2"></button>
+                <button onclick="checkAnswer(this)" id="option3"></button>
+                <button onclick="checkAnswer(this)" id="option4"></button>
+            </div>
+        </div>
+        <div id="result"></div>
+        <button id="next-button" onclick="nextQuestion()">Próxima</button>
+    </div>
+
+    <script>
+        const questions = [
+            { 
+                question: "Qual foi o primeiro milagre de Jesus?", 
+                options: ["Transformar água em vinho", "Curar um cego", "Andar sobre as águas", "Multiplicar pães e peixes"], 
+                correct: "Transformar água em vinho" 
+            },
+            { 
+                question: "Onde Jesus nasceu?", 
+                options: ["Jerusalém", "Belém", "Nazaré", "Cafarnaum"], 
+                correct: "Belém" 
+            },
+            { 
+                question: "Quantos discípulos Jesus tinha?", 
+                options: ["10", "11", "12", "13"], 
+                correct: "12" 
+            },
+            { 
+                question: "Quem construiu a arca para sobreviver ao dilúvio?", 
+                options: ["Moisés", "Abraão", "Noé", "Davi"], 
+                correct: "Noé" 
+            },
+            { 
+                question: "Qual é o primeiro livro da Bíblia?", 
+                options: ["Gênesis", "Êxodo", "Levítico", "Números"], 
+                correct: "Gênesis" 
+            },
+            { 
+                question: "Quem foi jogado na cova dos leões?", 
+                options: ["Daniel", "José", "Pedro", "Paulo"], 
+                correct: "Daniel" 
+            },
+            { 
+                question: "Qual apóstolo traiu Jesus?", 
+                options: ["Pedro", "Judas", "João", "Tomé"], 
+                correct: "Judas" 
+            },
+            { 
+                question: "Qual profeta foi engolido por um grande peixe?", 
+                options: ["Elias", "Eliseu", "Jonas", "Isaías"], 
+                correct: "Jonas" 
+            },
+            { 
+                question: "Quem liderou os israelitas na travessia do Mar Vermelho?", 
+                options: ["Moisés", "Josué", "Aarão", "Calebe"], 
+                correct: "Moisés" 
+            },
+            { 
+                question: "Qual rei foi conhecido por sua grande sabedoria?", 
+                options: ["Davi", "Salomão", "Saul", "Ezequias"], 
+                correct: "Salomão" 
+            },
+            { 
+                question: "Quem foi o primeiro homem?", 
+                options: ["Moisés", "Adão", "Noé", "Abraão"], 
+                correct: "Adão" 
+            },
+            { 
+                question: "Quem foi a mãe de Jesus?", 
+                options: ["Marta", "Maria Madalena", "Maria", "Isabel"], 
+                correct: "Maria" 
+            },
+            { 
+                question: "Quem interpretou os sonhos do Faraó no Egito?", 
+                options: ["José", "Moisés", "Daniel", "Davi"], 
+                correct: "José" 
+            },
+            { 
+                question: "Quem foi o discípulo que negou Jesus três vezes?", 
+                options: ["Pedro", "Judas", "Tiago", "João"], 
+                correct: "Pedro" 
+            },
+            { 
+                question: "Qual o nome do gigante que Davi derrotou?", 
+                options: ["Golias", "Sansão", "Absalão", "Nabucodonosor"], 
+                correct: "Golias" 
+            },
+            { 
+                question: "Quem foi o irmão mais novo de Moisés?", 
+                options: ["Arão", "Josué", "Calebe", "Ismael"], 
+                correct: "Arão" 
+            },
+            { 
+                question: "Qual foi a praga final que convenceu Faraó a libertar os israelitas?", 
+                options: ["Sapos", "Gafanhotos", "Morte dos primogênitos", "Escuridão"], 
+                correct: "Morte dos primogênitos" 
+            },
+            { 
+                question: "Quem foi o pai de Jacó?", 
+                options: ["Abraão", "Isaac", "Ismael", "José"], 
+                correct: "Isaac" 
+            },
+            { 
+                question: "Em qual cidade os muros caíram após a marcha de Josué?", 
+                options: ["Jericó", "Ai", "Betel", "Hebrom"], 
+                correct: "Jericó" 
+            },
+            { 
+                question: "Qual dos discípulos andou sobre as águas com Jesus?", 
+                options: ["Pedro", "João", "Tiago", "André"], 
+                correct: "Pedro" 
+            },
+            { 
+                question: "Quem foi o rei que tentou matar Jesus quando ele era bebê?", 
+                options: ["Herodes", "Faraó", "Nero", "Pilatos"], 
+                correct: "Herodes" 
+            },
+            { 
+                question: "Quantos anos o povo de Israel vagou no deserto?", 
+                options: ["10", "20", "30", "40"], 
+                correct: "40" 
+            },
+            { 
+                question: "Qual era a profissão de Mateus antes de seguir Jesus?", 
+                options: ["Pescador", "Médico", "Pastor", "Cobrador de impostos"], 
+                correct: "Cobrador de impostos" 
+            },
+            { 
+                question: "Quem teve um sonho sobre uma escada que alcançava o céu?", 
+                options: ["José", "Jacó", "Daniel", "Moisés"], 
+                correct: "Jacó" 
+            },
+            { 
+                question: "Quem foi transformado em uma estátua de sal?", 
+                options: ["Esposa de Abraão", "Esposa de Ló", "Esposa de Noé", "Esposa de Moisés"], 
+                correct: "Esposa de Ló" 
+            },
+            { 
+                question: "Quem recebeu os Dez Mandamentos?", 
+                options: ["Moisés", "Abraão", "Isaac", "José"], 
+                correct: "Moisés" 
+            },
+            { 
+                question: "Qual apóstolo era conhecido como o 'discípulo amado'?", 
+                options: ["Pedro", "João", "Tiago", "Tomé"], 
+                correct: "João" 
+            },
+            { 
+                question: "Quem escreveu a maioria das cartas do Novo Testamento?", 
+                options: ["Pedro", "Paulo", "João", "Tiago"], 
+                correct: "Paulo" 
+            },
+            { 
+                question: "Quem foi o primeiro mártir cristão?", 
+                options: ["Pedro", "Estevão", "Tiago", "Paulo"], 
+                correct: "Estevão" 
+            },
+            { 
+                question: "Qual é o menor livro da Bíblia?", 
+                options: ["3 João", "Filemom", "Judas", "Obadias"], 
+                correct: "3 João" 
+            },
+            { 
+                question: "Quem foi o pai de João Batista?", 
+                options: ["Zacarias", "José", "Simão", "Anás"], 
+                correct: "Zacarias" 
+            },
+            { 
+                question: "Qual discípulo duvidou da ressurreição de Jesus até ver suas feridas?", 
+                options: ["Pedro", "João", "Tiago", "Tomé"], 
+                correct: "Tomé" 
+            },
+            { 
+                question: "Quem foi o governador romano que sentenciou Jesus à crucificação?", 
+                options: ["Herodes", "Pilatos", "César", "Augusto"], 
+                correct: "Pilatos" 
+            },
+            { 
+                question: "Quem foi o primeiro rei de Israel?", 
+                options: ["Davi", "Saul", "Salomão", "Ezequias"], 
+                correct: "Saul" 
+            },
+            { 
+                question: "Quem escreveu o livro dos Salmos?", 
+                options: ["Moisés", "Salomão", "Davi", "Isaías"], 
+                correct: "Davi" 
+            },
+            // Continue adicionando até completar 50 perguntas
+        ];
+
+        let currentQuestionIndex = 0;
+
+        function loadQuestion() {
+            const questionObj = questions[currentQuestionIndex];
+            document.getElementById('question').textContent = questionObj.question;
+            document.getElementById('option1').textContent = questionObj.options[0];
+            document.getElementById('option2').textContent = questionObj.options[1];
+            document.getElementById('option3').textContent = questionObj.options[2];
+            document.getElementById('option4').textContent = questionObj.options[3];
+            document.getElementById('result').textContent = '';
+        }
+
+        function checkAnswer(element) {
+            const selectedAnswer = element.textContent;
+            const correctAnswer = questions[currentQuestionIndex].correct;
+            const result = document.getElementById('result');
+            if (selectedAnswer === correctAnswer) {
+                result.textContent = 'Correto!';
+                result.style.color = 'green';
+            } else {
+                result.textContent = 'Incorreto!';
+                result.style.color = 'red';
+            }
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < questions.length) {
+                loadQuestion();
+            } else {
+                document.getElementById('result').textContent = 'Você completou o quiz!';
+                document.getElementById('result').style.color = 'blue';
+                document.getElementById('next-button').style.display = 'none';
+            }
+        }
+
+        // Carrega a primeira pergunta quando a página é carregada
+        window.onload = loadQuestion;
+    </script>
+</body>
+</html>
